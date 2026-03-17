@@ -436,22 +436,6 @@
       object-fit: cover;
       display: block;
     }
-    /* Placeholder when no image is present */
-    .product-card-img-placeholder {
-      width: 100%;
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Bangers', cursive;
-      font-size: 6rem;
-      color: rgba(255,255,255,0.4);
-      letter-spacing: 0.04em;
-    }
-    .bg-hybrid  { background: radial-gradient(ellipse at 40% 30%, #2a80d4, #0D3A6E); }
-    .bg-sativa  { background: radial-gradient(ellipse at 60% 70%, #ffe44d, #E0A800); }
-    .bg-indica  { background: radial-gradient(ellipse at 50% 40%, #e84040, #991818); }
-
     .product-card-content {
       padding: 28px 28px 32px;
       position: relative;
@@ -1064,12 +1048,7 @@
 
       <!-- HYBRID -->
       <div class="product-card hybrid">
-        <!--
-          ★ Product image: place your file at assets/images/hybrid-box.jpg
-          then uncomment the img tag below and remove the placeholder div
-        -->
-        <!-- <img class="product-card-img" src="assets/images/hybrid-box.jpg" alt="SLAPPS! Hybrid 1G Cannabis Concentrate" /> -->
-        <div class="product-card-img-placeholder bg-hybrid">HYBRID</div>
+        <img class="product-card-img" src="assets/images/hybrid-box.jpg" alt="SLAPPS! Hybrid 1G Cannabis Concentrate" />
         <div class="product-card-content">
           <div class="product-weight">1G</div>
           <div class="product-strain-badge">Hybrid</div>
@@ -1086,11 +1065,7 @@
 
       <!-- SATIVA -->
       <div class="product-card sativa">
-        <!--
-          ★ Product image: place your file at assets/images/sativa-box.jpg
-        -->
-        <!-- <img class="product-card-img" src="assets/images/sativa-box.jpg" alt="SLAPPS! Sativa 1G Cannabis Concentrate" /> -->
-        <div class="product-card-img-placeholder bg-sativa">SATIVA</div>
+        <img class="product-card-img" src="assets/images/sativa-box.jpg" alt="SLAPPS! Sativa 1G Cannabis Concentrate" />
         <div class="product-card-content">
           <div class="product-weight">1G</div>
           <div class="product-strain-badge">Sativa</div>
@@ -1107,11 +1082,7 @@
 
       <!-- INDICA -->
       <div class="product-card indica">
-        <!--
-          ★ Product image: place your file at assets/images/indica-box.jpg
-        -->
-        <!-- <img class="product-card-img" src="assets/images/indica-box.jpg" alt="SLAPPS! Indica 1G Cannabis Concentrate" /> -->
-        <div class="product-card-img-placeholder bg-indica">INDICA</div>
+        <img class="product-card-img" src="assets/images/indica-box.jpg" alt="SLAPPS! Indica 1G Cannabis Concentrate" />
         <div class="product-card-content">
           <div class="product-weight">1G</div>
           <div class="product-strain-badge">Indica</div>
