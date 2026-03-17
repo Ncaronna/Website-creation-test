@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SLAPPS! — Premium Cannabis Extracts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #E8A020;
+      --gold-hot: #FFB830;
+      --off-black: #0A0A09;
+      --dark: #111110;
+      --mid: #1A1A18;
+      --text: #F0EDE6;
+      --muted: #7A7A72;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      background: var(--off-black);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(232,160,32,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* GRAIN OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.045;
+      pointer-events: none;
+      z-index: 9990;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px;
+      mix-blend-mode: normal;
+    }
+    nav::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,10,9,0.9) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+      position: relative;
+      z-index: 1;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ─── HERO / VIDEO SCRUB ─── */
+    .scrub-section {
+      position: relative;
+      height: 600vh;
+    }
+
+    .video-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .video-sticky video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Demo gradient that animates when no video is loaded */
+    .video-demo-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, #3D2008 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, #1E3A1E 0%, transparent 55%),
+                  radial-gradient(ellipse at 60% 80%, #2A1A00 0%, transparent 50%),
+                  var(--off-black);
+      transition: none;
+    }
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particleDrift linear infinite;
+    }
+
+    @keyframes particleDrift {
+      0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { transform: translateY(-20px) translateX(30px); opacity: 0; }
+    }
+
+    /* Vignette */
+    .video-sticky::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(10,10,9,0.75) 100%);
+      pointer-events: none;
+    }
+
+    /* SCROLL OVERLAYS */
+    .scroll-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .scroll-chapter {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .scroll-chapter.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chapter-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .chapter-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 14vw, 13rem);
+      line-height: 0.9;
+      text-align: center;
+      color: var(--text);
+      text-shadow: 0 0 80px rgba(232,160,32,0.15);
+    }
+    .chapter-headline .accent { color: var(--gold); }
+    .chapter-sub {
+      font-family: 'Barlow', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: 24px;
+      letter-spacing: 0.08em;
+      max-width: 380px;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    #ch1 { padding: 0 20px; }
+    #ch2 { align-items: flex-start; padding-left: 10vw; }
+    #ch2 .chapter-headline { font-size: clamp(6rem, 18vw, 18rem); color: var(--gold); }
+    #ch3 { align-items: flex-end; padding-right: 10vw; text-align: right; }
+    #ch4 { flex-direction: column; gap: 32px; }
+
+    .hr-accent {
+      width: 60px; height: 1px;
+      background: var(--gold);
+      margin: 20px auto 0;
+      opacity: 0.6;
+    }
+
+    /* PROGRESS BAR */
+    .scroll-progress {
+      position: fixed;
+      left: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 200;
+    }
+    .progress-track {
+      width: 1px;
+      height: 120px;
+      background: rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .progress-fill {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1px;
+      background: var(--gold);
+      transition: height 0.1s linear;
+    }
+    .progress-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    /* ─── PRODUCT SECTION ─── */
+    .products-section {
+      background: var(--dark);
+      padding: 140px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .products-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: 0.3;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 80px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: 1;
+      color: var(--text);
+    }
+    .section-title span { color: var(--gold); }
+    .section-desc {
+      max-width: 320px;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .product-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      background: var(--mid);
+      overflow: hidden;
+      cursor: none;
+    }
+
+    .product-card-bg {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .product-card:hover .product-card-bg { transform: scale(1.05); }
+
+    .card-gradient-1 { background: radial-gradient(ellipse at 40% 30%, #4A2800 0%, #1A0E00 60%, #0A0A09 100%); }
+    .card-gradient-2 { background: radial-gradient(ellipse at 60% 70%, #1A2E1A 0%, #0E1E0E 60%, #0A0A09 100%); }
+    .card-gradient-3 { background: radial-gradient(ellipse at 50% 40%, #2E1A00 0%, #1A0E00 60%, #0A0A09 100%); }
+
+    .product-card-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px 36px;
+      background: linear-gradient(to top, rgba(10,10,9,0.95) 0%, rgba(10,10,9,0.3) 50%, transparent 100%);
+    }
+
+    .product-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .product-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.2rem;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .product-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .product-potency {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .potency-bar-wrap {
+      flex: 1;
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .potency-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--gold), var(--gold-hot));
+      border-radius: 2px;
+      transition: width 1s ease 0.3s;
+    }
+    .potency-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    .product-card.featured {
+      border: 1px solid rgba(232,160,32,0.2);
+    }
+    .product-card.featured .product-name { font-size: 4rem; }
+
+    /* ─── MANIFESTO SECTION ─── */
+    .manifesto-section {
+      padding: 200px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .manifesto-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(232,160,32,0.04) 0%, transparent 60%),
+                  var(--off-black);
+    }
+    .manifesto-inner {
+      max-width: 1000px;
+      position: relative;
+      z-index: 1;
+    }
+    .manifesto-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20rem;
+      color: rgba(232,160,32,0.04);
+      position: absolute;
+      top: -80px;
+      left: -60px;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .manifesto-quote {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: 1.05;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+    }
+    .manifesto-quote .gold { color: var(--gold); }
+    .manifesto-byline {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .byline-line { width: 40px; height: 1px; background: var(--gold); opacity: 0.5; }
+    .byline-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── PROCESS SECTION ─── */
+    .process-section {
+      background: var(--mid);
+      padding: 140px 80px;
+      position: relative;
+    }
+    .process-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(232,160,32,0.3), transparent);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 120px;
+      align-items: center;
+    }
+    .process-steps { display: flex; flex-direction: column; gap: 0; }
+
+    .step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      transition: border-color 0.3s ease;
+    }
+    .step:hover { border-color: rgba(232,160,32,0.2); }
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: rgba(232,160,32,0.2);
+      line-height: 1;
+      transition: color 0.3s ease;
+    }
+    .step:hover .step-num { color: var(--gold); }
+    .step-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .process-visual {
+      position: relative;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .process-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(232,160,32,0.1);
+      animation: ringPulse 4s ease-in-out infinite;
+    }
+    .ring-1 { width: 100%; height: 100%; animation-delay: 0s; }
+    .ring-2 { width: 75%; height: 75%; animation-delay: 0.8s; }
+    .ring-3 { width: 50%; height: 50%; animation-delay: 1.6s; border-color: rgba(232,160,32,0.25); }
+    .ring-4 { width: 28%; height: 28%; animation-delay: 2.4s; border-color: rgba(232,160,32,0.4); background: radial-gradient(circle, rgba(232,160,32,0.1) 0%, transparent 70%); }
+
+    @keyframes ringPulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    .process-center-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .process-center-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* ─── FOOTER CTA ─── */
+    .cta-section {
+      padding: 200px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: 'SLAPPS';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40vw;
+      color: rgba(232,160,32,0.025);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .cta-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .cta-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 10rem);
+      line-height: 0.95;
+      color: var(--text);
+      margin-bottom: 48px;
+    }
+    .cta-headline span { color: var(--gold); }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 48px;
+      background: var(--gold);
+      color: var(--off-black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border: none;
+      cursor: none;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .btn-primary:hover {
+      background: var(--gold-hot);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 48px;
+      background: transparent;
+      color: var(--text);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: none;
+      text-decoration: none;
+      transition: border-color 0.2s ease, color 0.2s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer {
+      padding: 60px 80px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+    .footer-logo span { color: var(--muted); }
+    .footer-legal {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      max-width: 400px;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+    .footer-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* SCROLL INDICATOR */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      z-index: 10;
+    }
+    .scroll-indicator.hidden { opacity: 0; pointer-events: none; }
+    .scroll-indicator-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .scroll-arrow {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollArrow 2s ease-in-out infinite;
+    }
+    @keyframes scrollArrow {
+      0%, 100% { transform: scaleY(1); opacity: 0.6; }
+      50% { transform: scaleY(1.3); opacity: 1; }
+    }
+
+    /* INTRO ANIMATION */
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--off-black);
+      z-index: 9995;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease 0.2s, visibility 0.8s ease 0.2s;
+    }
+    .intro-overlay.gone { opacity: 0; visibility: hidden; }
+    .intro-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 15vw, 14rem);
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      animation: introScale 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    @keyframes introScale {
+      0% { opacity: 0; transform: scale(0.8); }
+      60% { opacity: 1; transform: scale(1.02); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 24px 24px; }
+      .nav-links { display: none; }
+      .products-section, .manifesto-section, .process-section, .cta-section { padding: 80px 24px; }
+      .products-grid { grid-template-columns: 1fr; gap: 2px; }
+      .section-header { flex-direction: column; gap: 24px; align-items: flex-start; }
+      .process-grid { grid-template-columns: 1fr; gap: 60px; }
+      .process-visual { max-width: 280px; margin: 0 auto; }
+      footer { flex-direction: column; gap: 32px; text-align: center; }
+      .scroll-progress { display: none; }
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- INTRO SPLASH -->
+  <div class="intro-overlay" id="introOverlay">
+    <div class="intro-text">SLAPPS!</div>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">SLAPPS<span>!</span></a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#find">Find Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress">
+    <div class="progress-label">Scroll</div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <!-- ─── VIDEO SCRUB SECTION ─── -->
+  <section class="scrub-section" id="scrubSection">
+    <div class="video-sticky" id="videoSticky">
+
+      <!-- ★ SWAP THIS VIDEO SRC WITH YOUR OWN ★ -->
+      <!-- <video id="scrubVideo" muted playsinline preload="auto" src="your-video.mp4"></video> -->
+
+      <!-- Demo background (remove when adding real video) -->
+      <div class="video-demo-bg" id="demoBg"></div>
+      <div class="particles" id="particles"></div>
+
+      <!-- SCROLL OVERLAY TEXT CHAPTERS -->
+      <div class="scroll-overlay">
+
+        <div class="scroll-chapter" id="ch1">
+          <div class="chapter-eyebrow">Premium Cannabis Extracts</div>
+          <div class="chapter-headline">HITS<br>DIFFERENT<span class="accent">.</span></div>
+          <div class="chapter-sub">Crafted for the culture. Extracted with precision. Built for the ones who know the difference.</div>
+        </div>
+
+        <div class="scroll-chapter" id="ch2">
+          <div class="chapter-eyebrow">Potency</div>
+          <div class="chapter-headline">90<span style="font-size:0.4em;color:var(--text)">%+</span></div>
+          <div class="chapter-sub" style="text-align:left;max-width:280px">THCa purity that sets the bar. No fillers. No compromises.</div>
+        </div>
+
+        <div class="scroll-chapter" id="ch3">
+          <div class="chapter-eyebrow">The Effect</div>
+          <div class="chapter-headline">FULL<br>SEND<span class="accent">.</span></div>
+          <div class="chapter-sub" style="text-align:right">Live resin. Sauce. Diamonds. Every form, engineered to slap.</div>
+        </div>
+
+        <div class="scroll-chapter" id="ch4">
+          <div class="chapter-eyebrow">Ready?</div>
+          <div class="chapter-headline">FIND<br>YOUR<br>SLAPP<span class="accent">.</span></div>
+          <div class="hr-accent"></div>
+        </div>
+
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator" id="scrollIndicator">
+        <div class="scroll-indicator-text">Scroll</div>
+        <div class="scroll-arrow"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── PRODUCTS ─── -->
+  <section class="products-section" id="products">
+    <div class="section-header">
+      <div class="section-title">The<br><span>Line</span><span style="color:var(--text)">up.</span></div>
+      <div class="section-desc">Three formats. One standard. Extracted from single-source flower, never blended, never compromised.</div>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-card-bg card-gradient-1"></div>
+        <div class="product-card-content">
+          <div class="product-tag">Live Resin</div>
+          <div class="product-name">Night<br>Slapp</div>
+          <div class="product-desc">Indica-forward live resin with deep terpene preservation. Body-heavy, mind-clearing.</div>
+          <div class="product-potency">
+            <div class="potency-bar-wrap">
+              <div class="potency-bar" style="width: 82%"></div>
+            </div>
+            <div class="potency-label">82% THC</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card featured">
+        <div class="product-card-bg card-gradient-2"></div>
+        <div class="product-card-content">
+          <div class="product-tag">★ Signature</div>
+          <div class="product-name">The<br>OG<br>Slapp</div>
+          <div class="product-desc">Our flagship. Live sauce with diamond inclusions. The one that started it all.</div>
+          <div class="product-potency">
+            <div class="potency-bar-wrap">
+              <div class="potency-bar" style="width: 91%"></div>
+            </div>
+            <div class="potency-label">91% THC</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-bg card-gradient-3"></div>
+        <div class="product-card-content">
+          <div class="product-tag">Diamonds</div>
+          <div class="product-name">Day<br>Slapp</div>
+          <div class="product-desc">Sativa-leaning THCa diamonds in terpene sauce. Focused, creative, ready.</div>
+          <div class="product-potency">
+            <div class="potency-bar-wrap">
+              <div class="potency-bar" style="width: 95%"></div>
+            </div>
+            <div class="potency-label">95% THCa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MANIFESTO ─── -->
+  <section class="manifesto-section" id="about">
+    <div class="manifesto-bg"></div>
+    <div class="manifesto-inner">
+      <div class="manifesto-number">01</div>
+      <div class="manifesto-quote">
+        We don't cut<br>corners.<br>We <span class="gold">cut through</span><br>the noise.
+      </div>
+      <div class="manifesto-byline">
+        <div class="byline-line"></div>
+        <div class="byline-text">The Slapps! Standard — Est. Every Single Batch</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROCESS ─── -->
+  <section class="process-section" id="process">
+    <div class="section-header" style="margin-bottom:80px">
+      <div class="section-title">How We<br><span>Extract.</span></div>
+      <div class="section-desc">No shortcuts. No compromise. Every batch follows the same obsessive process — because the product demands it.</div>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <div class="step-title">Single-Source Selection</div>
+            <div class="step-desc">We start with hand-selected, single-origin flower. No blends, no mystery biomass — just elite genetics from trusted cultivators.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <div class="step-title">Flash Freeze at Harvest</div>
+            <div class="step-desc">Flower is frozen immediately at harvest to lock in the full terpene and cannabinoid profile before any degradation can occur.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <div class="step-title">Hydrocarbon Extraction</div>
+            <div class="step-desc">Precision hydrocarbon extraction preserves the plant's living chemistry. Cold temps, clean solvents, zero shortcuts.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <div class="step-title">Purge &amp; Finish</div>
+            <div class="step-desc">Extended low-temp purging. No residual solvent. Every batch third-party tested before it earns the Slapps! name.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-visual">
+        <div class="process-ring ring-1"></div>
+        <div class="process-ring ring-2"></div>
+        <div class="process-ring ring-3"></div>
+        <div class="process-ring ring-4"></div>
+        <div style="text-align:center;position:relative;z-index:1">
+          <div class="process-center-text">100%</div>
+          <div class="process-center-sub">Third-Party Tested</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FIND US CTA ─── -->
+  <section class="cta-section" id="find">
+    <div class="cta-eyebrow">Available Now</div>
+    <div class="cta-headline">Ready<br>to <span>Slapp</span>?</div>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">Find a Dispensary</a>
+      <a href="#" class="btn-ghost">View Lab Results</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">SLAPPS<span>!</span></div>
+    <div class="footer-legal">For adults 21+ only. Keep out of reach of children. Use responsibly. Not for sale to minors. Check your local laws.</div>
+    <div class="footer-links">
+      <a href="#">Instagram</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </footer>
+
+  <script>
+    // ─── INTRO ───
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('introOverlay').classList.add('gone');
+      }, 1600);
+    });
+
+    // ─── CURSOR ───
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+
+    function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      cursorRing.style.left = rx + 'px';
+      cursorRing.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '20px';
+        cursor.style.height = '20px';
+        cursorRing.style.width = '52px';
+        cursorRing.style.height = '52px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '12px';
+        cursor.style.height = '12px';
+        cursorRing.style.width = '36px';
+        cursorRing.style.height = '36px';
+      });
+    });
+
+    // ─── PARTICLES (demo bg) ───
+    const particleContainer = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (6 + Math.random() * 10) + 's';
+      p.style.animationDelay = (Math.random() * 8) + 's';
+      p.style.opacity = 0;
+      particleContainer.appendChild(p);
+    }
+
+    // ─── VIDEO SCRUB ───
+    const scrubSection = document.getElementById('scrubSection');
+    const video = document.getElementById('scrubVideo'); // null if no video yet
+    const demoBg = document.getElementById('demoBg');
+    const chapters = [
+      document.getElementById('ch1'),
+      document.getElementById('ch2'),
+      document.getElementById('ch3'),
+      document.getElementById('ch4'),
+    ];
+    const progressFill = document.getElementById('progressFill');
+    const scrollIndicator = document.getElementById('scrollIndicator');
+
+    const chapterThresholds = [0, 0.22, 0.48, 0.72, 0.92];
+
+    const demoColors = [
+      ['#4A2808', '#1E3A1E', '#2A1A00'],
+      ['#6A3A08', '#1A2A1A', '#3A2200'],
+      ['#2A1A0A', '#0E1E0E', '#1A0E00'],
+      ['#3A2808', '#142014', '#201400'],
+    ];
+
+    let ticking = false;
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(updateScroll);
+        ticking = true;
+      }
+    }
+
+    function updateScroll() {
+      ticking = false;
+
+      const sectionTop = scrubSection.offsetTop;
+      const sectionH = scrubSection.offsetHeight - window.innerHeight;
+      const scrolled = window.scrollY - sectionTop;
+      const progress = Math.max(0, Math.min(1, scrolled / sectionH));
+
+      // Progress bar (full page)
+      const fullProgress = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      progressFill.style.height = (fullProgress * 100) + '%';
+
+      // Hide scroll indicator after first scroll
+      if (window.scrollY > 100) {
+        scrollIndicator.classList.add('hidden');
+      } else {
+        scrollIndicator.classList.remove('hidden');
+      }
+
+      // Video scrubbing
+      if (video && video.duration) {
+        video.currentTime = progress * video.duration;
+      }
+
+      // Demo bg color shift
+      const chapterIdx = Math.min(3, Math.floor(progress / 0.25));
+      const colors = demoColors[chapterIdx];
+      demoBg.style.background = `
+        radial-gradient(ellipse at ${30 + progress * 40}% ${60 - progress * 30}%, ${colors[0]} 0%, transparent 60%),
+        radial-gradient(ellipse at ${80 - progress * 20}% ${20 + progress * 50}%, ${colors[1]} 0%, transparent 55%),
+        radial-gradient(ellipse at ${60 + progress * 10}% ${80 - progress * 40}%, ${colors[2]} 0%, transparent 50%),
+        #0A0A09
+      `;
+
+      // Chapter visibility
+      chapters.forEach((ch, i) => {
+        const start = chapterThresholds[i];
+        const end = chapterThresholds[i + 1] ?? 1.0;
+
+        if (i === 0) {
+          const active = progress < end + 0.05;
+          ch.classList.toggle('active', active);
+        } else {
+          const active = progress >= start - 0.03 && progress < end + 0.05;
+          ch.classList.toggle('active', active);
+        }
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Trigger on load
+    updateScroll();
+    // Activate first chapter immediately
+    chapters[0].classList.add('active');
+
+    // If real video exists, ensure it's seekable
+    if (video) {
+      video.addEventListener('loadedmetadata', () => {
+        video.pause();
+        updateScroll();
+      });
+      video.load();
+    }
+  </script>
+
+</body>
+</html>
