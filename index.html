@@ -3,50 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SLAPPS! — Premium Cannabis Extracts</title>
+  <title>SLAPPS! — Premium Cannabis Concentrates</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --gold: #E8A020;
-      --gold-hot: #FFB830;
-      --off-black: #0A0A09;
-      --dark: #111110;
-      --mid: #1A1A18;
-      --text: #F0EDE6;
-      --muted: #7A7A72;
+      --blue:       #1A6CC8;
+      --blue-dark:  #0D3A6E;
+      --blue-light: #4A9EE8;
+      --red:        #CC2020;
+      --red-dark:   #991818;
+      --yellow:     #FFD700;
+      --yellow-dark:#E0A800;
+      --white:      #FFFFFF;
+      --off-white:  #F5F0E0;
+      --black:      #1A1209;
+      --outline:    3px solid #1A1209;
+      --outline-thick: 4px solid #1A1209;
     }
 
     html { scroll-behavior: auto; }
 
     body {
-      background: var(--off-black);
-      color: var(--text);
+      background: var(--off-white);
+      color: var(--black);
       font-family: 'Barlow', sans-serif;
       overflow-x: hidden;
       cursor: none;
     }
 
-    /* CUSTOM CURSOR */
+    /* ─── HALFTONE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+      background-size: 18px 18px;
+      pointer-events: none;
+      z-index: 9990;
+    }
+
+    /* ─── CUSTOM CURSOR ─── */
     .cursor {
       position: fixed;
-      width: 12px; height: 12px;
-      background: var(--gold);
+      width: 14px; height: 14px;
+      background: var(--red);
+      border: 2px solid var(--black);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
-      mix-blend-mode: difference;
+      transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease;
     }
     .cursor-ring {
       position: fixed;
-      width: 36px; height: 36px;
-      border: 1px solid rgba(232,160,32,0.5);
+      width: 40px; height: 40px;
+      border: 2px solid var(--blue);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9998;
@@ -54,63 +70,83 @@
       transition: transform 0.18s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
     }
 
-    /* GRAIN OVERLAY */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.045;
-      pointer-events: none;
-      z-index: 9990;
-    }
-
-    /* NAV */
+    /* ─── NAV ─── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 500;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 28px 48px;
-      mix-blend-mode: normal;
-    }
-    nav::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(10,10,9,0.9) 0%, transparent 100%);
-      pointer-events: none;
+      padding: 20px 48px;
+      background: var(--blue);
+      border-bottom: var(--outline-thick);
     }
     .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      letter-spacing: 0.05em;
-      color: var(--gold);
+      font-family: 'Bangers', cursive;
+      font-size: 2.4rem;
+      letter-spacing: 0.06em;
+      color: var(--yellow);
+      text-decoration: none;
+      text-shadow: 3px 3px 0 var(--black);
+      -webkit-text-stroke: 1px var(--black);
       position: relative;
       z-index: 1;
-      text-decoration: none;
     }
-    .nav-logo span { color: var(--text); }
+    .nav-logo span { color: var(--white); }
     .nav-links {
       display: flex;
-      gap: 40px;
+      gap: 36px;
       list-style: none;
-      position: relative;
-      z-index: 1;
     }
     .nav-links a {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--white);
       text-decoration: none;
-      transition: color 0.2s ease;
+      transition: color 0.15s ease;
     }
-    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover { color: var(--yellow); }
+
+    /* ─── SCROLL PROGRESS ─── */
+    .scroll-progress {
+      position: fixed;
+      left: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 200;
+    }
+    .progress-track {
+      width: 4px;
+      height: 120px;
+      background: rgba(0,0,0,0.15);
+      border: 2px solid var(--black);
+      border-radius: 2px;
+      position: relative;
+    }
+    .progress-fill {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      background: var(--red);
+      transition: height 0.1s linear;
+    }
+    .progress-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+      writing-mode: vertical-rl;
+      font-weight: 700;
+    }
 
     /* ─── HERO / VIDEO SCRUB ─── */
     .scrub-section {
@@ -134,35 +170,46 @@
       object-fit: cover;
     }
 
-    /* Demo gradient that animates when no video is loaded */
+    /* Animated comic background */
     .video-demo-bg {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 30% 60%, #3D2008 0%, transparent 60%),
-                  radial-gradient(ellipse at 80% 20%, #1E3A1E 0%, transparent 55%),
-                  radial-gradient(ellipse at 60% 80%, #2A1A00 0%, transparent 50%),
-                  var(--off-black);
-      transition: none;
-    }
-    .particles {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-    }
-    .particle {
-      position: absolute;
-      width: 2px; height: 2px;
-      background: var(--gold);
-      border-radius: 50%;
-      opacity: 0;
-      animation: particleDrift linear infinite;
+      background: var(--blue);
+      transition: background 0.4s ease;
     }
 
-    @keyframes particleDrift {
-      0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
-      10%  { opacity: 0.6; }
-      90%  { opacity: 0.3; }
-      100% { transform: translateY(-20px) translateX(30px); opacity: 0; }
+    /* Animated halftone dots layer inside hero */
+    .hero-halftone {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1.5px, transparent 1.5px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    /* Comic burst decorations */
+    .hero-burst {
+      position: absolute;
+      font-family: 'Bangers', cursive;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.18;
+    }
+    .burst-1 {
+      font-size: 18vw;
+      color: var(--yellow);
+      top: -5%;
+      right: -5%;
+      transform: rotate(15deg);
+      -webkit-text-stroke: 2px var(--black);
+    }
+    .burst-2 {
+      font-size: 12vw;
+      color: var(--red);
+      bottom: 5%;
+      left: -2%;
+      transform: rotate(-8deg);
+      -webkit-text-stroke: 2px var(--black);
     }
 
     /* Vignette */
@@ -170,11 +217,11 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at center, transparent 40%, rgba(10,10,9,0.75) 100%);
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.35) 100%);
       pointer-events: none;
     }
 
-    /* SCROLL OVERLAYS */
+    /* SCROLL OVERLAY TEXT CHAPTERS */
     .scroll-overlay {
       position: absolute;
       inset: 0;
@@ -202,485 +249,51 @@
 
     .chapter-eyebrow {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 700;
       letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
+      color: var(--yellow);
+      margin-bottom: 14px;
+      text-shadow: 1px 1px 0 var(--black);
+      background: var(--black);
+      padding: 4px 14px;
+      border-radius: 2px;
     }
+
     .chapter-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(5rem, 14vw, 13rem);
+      font-family: 'Bangers', cursive;
+      font-size: clamp(5rem, 16vw, 14rem);
       line-height: 0.9;
       text-align: center;
-      color: var(--text);
-      text-shadow: 0 0 80px rgba(232,160,32,0.15);
+      color: var(--white);
+      -webkit-text-stroke: 2px var(--black);
+      text-shadow: 6px 6px 0 var(--black);
+      letter-spacing: 0.04em;
     }
-    .chapter-headline .accent { color: var(--gold); }
+    .chapter-headline .accent { color: var(--yellow); }
+    .chapter-headline .accent-red { color: var(--red); -webkit-text-stroke: 2px var(--black); }
+
     .chapter-sub {
-      font-family: 'Barlow', sans-serif;
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--muted);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
       margin-top: 24px;
-      letter-spacing: 0.08em;
-      max-width: 380px;
+      letter-spacing: 0.06em;
+      max-width: 400px;
       text-align: center;
-      line-height: 1.7;
+      line-height: 1.5;
+      background: rgba(0,0,0,0.55);
+      padding: 10px 20px;
+      border: 2px solid rgba(255,255,255,0.3);
     }
 
     #ch1 { padding: 0 20px; }
     #ch2 { align-items: flex-start; padding-left: 10vw; }
-    #ch2 .chapter-headline { font-size: clamp(6rem, 18vw, 18rem); color: var(--gold); }
+    #ch2 .chapter-headline { font-size: clamp(7rem, 22vw, 20rem); color: var(--yellow); }
     #ch3 { align-items: flex-end; padding-right: 10vw; text-align: right; }
-    #ch4 { flex-direction: column; gap: 32px; }
-
-    .hr-accent {
-      width: 60px; height: 1px;
-      background: var(--gold);
-      margin: 20px auto 0;
-      opacity: 0.6;
-    }
-
-    /* PROGRESS BAR */
-    .scroll-progress {
-      position: fixed;
-      left: 48px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      z-index: 200;
-    }
-    .progress-track {
-      width: 1px;
-      height: 120px;
-      background: rgba(255,255,255,0.1);
-      position: relative;
-    }
-    .progress-fill {
-      position: absolute;
-      top: 0; left: 0;
-      width: 1px;
-      background: var(--gold);
-      transition: height 0.1s linear;
-    }
-    .progress-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-    }
-
-    /* ─── PRODUCT SECTION ─── */
-    .products-section {
-      background: var(--dark);
-      padding: 140px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-    .products-section::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-      opacity: 0.3;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 80px;
-    }
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 7vw, 7rem);
-      line-height: 1;
-      color: var(--text);
-    }
-    .section-title span { color: var(--gold); }
-    .section-desc {
-      max-width: 320px;
-      font-size: 0.9rem;
-      line-height: 1.8;
-      color: var(--muted);
-      font-weight: 300;
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-
-    .product-card {
-      position: relative;
-      aspect-ratio: 3/4;
-      background: var(--mid);
-      overflow: hidden;
-      cursor: none;
-    }
-
-    .product-card-bg {
-      position: absolute;
-      inset: 0;
-      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .product-card:hover .product-card-bg { transform: scale(1.05); }
-
-    .card-gradient-1 { background: radial-gradient(ellipse at 40% 30%, #4A2800 0%, #1A0E00 60%, #0A0A09 100%); }
-    .card-gradient-2 { background: radial-gradient(ellipse at 60% 70%, #1A2E1A 0%, #0E1E0E 60%, #0A0A09 100%); }
-    .card-gradient-3 { background: radial-gradient(ellipse at 50% 40%, #2E1A00 0%, #1A0E00 60%, #0A0A09 100%); }
-
-    .product-card-content {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 40px 36px;
-      background: linear-gradient(to top, rgba(10,10,9,0.95) 0%, rgba(10,10,9,0.3) 50%, transparent 100%);
-    }
-
-    .product-tag {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 10px;
-    }
-    .product-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3.2rem;
-      line-height: 1;
-      color: var(--text);
-      margin-bottom: 12px;
-    }
-    .product-desc {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 300;
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-    .product-potency {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .potency-bar-wrap {
-      flex: 1;
-      height: 2px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    .potency-bar {
-      height: 100%;
-      background: linear-gradient(to right, var(--gold), var(--gold-hot));
-      border-radius: 2px;
-      transition: width 1s ease 0.3s;
-    }
-    .potency-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      white-space: nowrap;
-    }
-
-    .product-card.featured {
-      border: 1px solid rgba(232,160,32,0.2);
-    }
-    .product-card.featured .product-name { font-size: 4rem; }
-
-    /* ─── MANIFESTO SECTION ─── */
-    .manifesto-section {
-      padding: 200px 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      position: relative;
-      overflow: hidden;
-    }
-    .manifesto-bg {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 20% 50%, rgba(232,160,32,0.04) 0%, transparent 60%),
-                  var(--off-black);
-    }
-    .manifesto-inner {
-      max-width: 1000px;
-      position: relative;
-      z-index: 1;
-    }
-    .manifesto-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20rem;
-      color: rgba(232,160,32,0.04);
-      position: absolute;
-      top: -80px;
-      left: -60px;
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-    }
-    .manifesto-quote {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 7vw, 7rem);
-      line-height: 1.05;
-      color: var(--text);
-      position: relative;
-      z-index: 1;
-    }
-    .manifesto-quote .gold { color: var(--gold); }
-    .manifesto-byline {
-      margin-top: 48px;
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-    .byline-line { width: 40px; height: 1px; background: var(--gold); opacity: 0.5; }
-    .byline-text {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    /* ─── PROCESS SECTION ─── */
-    .process-section {
-      background: var(--mid);
-      padding: 140px 80px;
-      position: relative;
-    }
-    .process-section::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(232,160,32,0.3), transparent);
-    }
-
-    .process-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 120px;
-      align-items: center;
-    }
-    .process-steps { display: flex; flex-direction: column; gap: 0; }
-
-    .step {
-      display: grid;
-      grid-template-columns: 60px 1fr;
-      gap: 24px;
-      padding: 32px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      position: relative;
-      transition: border-color 0.3s ease;
-    }
-    .step:hover { border-color: rgba(232,160,32,0.2); }
-    .step:last-child { border-bottom: none; }
-
-    .step-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem;
-      color: rgba(232,160,32,0.2);
-      line-height: 1;
-      transition: color 0.3s ease;
-    }
-    .step:hover .step-num { color: var(--gold); }
-    .step-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-    .step-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.7;
-      font-weight: 300;
-    }
-
-    .process-visual {
-      position: relative;
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .process-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(232,160,32,0.1);
-      animation: ringPulse 4s ease-in-out infinite;
-    }
-    .ring-1 { width: 100%; height: 100%; animation-delay: 0s; }
-    .ring-2 { width: 75%; height: 75%; animation-delay: 0.8s; }
-    .ring-3 { width: 50%; height: 50%; animation-delay: 1.6s; border-color: rgba(232,160,32,0.25); }
-    .ring-4 { width: 28%; height: 28%; animation-delay: 2.4s; border-color: rgba(232,160,32,0.4); background: radial-gradient(circle, rgba(232,160,32,0.1) 0%, transparent 70%); }
-
-    @keyframes ringPulse {
-      0%, 100% { opacity: 0.4; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.02); }
-    }
-
-    .process-center-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-    .process-center-sub {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 4px;
-    }
-
-    /* ─── FOOTER CTA ─── */
-    .cta-section {
-      padding: 200px 80px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .cta-section::before {
-      content: 'SLAPPS';
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 40vw;
-      color: rgba(232,160,32,0.025);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      user-select: none;
-      white-space: nowrap;
-    }
-    .cta-eyebrow {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 24px;
-    }
-    .cta-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4rem, 10vw, 10rem);
-      line-height: 0.95;
-      color: var(--text);
-      margin-bottom: 48px;
-    }
-    .cta-headline span { color: var(--gold); }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 16px;
-      padding: 20px 48px;
-      background: var(--gold);
-      color: var(--off-black);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      border: none;
-      cursor: none;
-      text-decoration: none;
-      transition: background 0.2s ease, transform 0.2s ease;
-      position: relative;
-      z-index: 1;
-    }
-    .btn-primary:hover {
-      background: var(--gold-hot);
-      transform: translateY(-2px);
-    }
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 16px;
-      padding: 20px 48px;
-      background: transparent;
-      color: var(--text);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.15);
-      cursor: none;
-      text-decoration: none;
-      transition: border-color 0.2s ease, color 0.2s ease;
-      position: relative;
-      z-index: 1;
-    }
-    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
-
-    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-
-    /* FOOTER */
-    footer {
-      padding: 60px 80px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-    }
-    .footer-logo span { color: var(--muted); }
-    .footer-legal {
-      font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      max-width: 400px;
-      text-align: center;
-      line-height: 1.6;
-    }
-    .footer-links {
-      display: flex;
-      gap: 32px;
-    }
-    .footer-links a {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    .footer-links a:hover { color: var(--gold); }
+    #ch4 { flex-direction: column; gap: 24px; }
 
     /* SCROLL INDICATOR */
     .scroll-indicator {
@@ -691,66 +304,662 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       opacity: 1;
       transition: opacity 0.5s ease;
       z-index: 10;
     }
     .scroll-indicator.hidden { opacity: 0; pointer-events: none; }
     .scroll-indicator-text {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
+      font-family: 'Bangers', cursive;
+      font-size: 1rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--yellow);
+      text-shadow: 2px 2px 0 var(--black);
     }
     .scroll-arrow {
-      width: 1px;
+      width: 3px;
       height: 48px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
+      background: linear-gradient(to bottom, var(--yellow), transparent);
       animation: scrollArrow 2s ease-in-out infinite;
     }
     @keyframes scrollArrow {
-      0%, 100% { transform: scaleY(1); opacity: 0.6; }
+      0%, 100% { transform: scaleY(1); opacity: 0.7; }
       50% { transform: scaleY(1.3); opacity: 1; }
     }
 
-    /* INTRO ANIMATION */
+    /* ─── COMIC BURST BADGE (reusable) ─── */
+    .comic-badge {
+      display: inline-block;
+      font-family: 'Bangers', cursive;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      background: var(--red);
+      border: var(--outline-thick);
+      padding: 4px 16px;
+      transform: rotate(-2deg);
+      box-shadow: 3px 3px 0 var(--black);
+    }
+
+    /* ─── SECTION DIVIDERS ─── */
+    .section-divider {
+      height: 8px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--black) 0px,
+        var(--black) 20px,
+        var(--yellow) 20px,
+        var(--yellow) 40px,
+        var(--red) 40px,
+        var(--red) 60px,
+        var(--blue) 60px,
+        var(--blue) 80px
+      );
+    }
+
+    /* ─── PRODUCTS SECTION ─── */
+    .products-section {
+      background: var(--off-white);
+      padding: 120px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Faint comic-dots background for this section */
+    .products-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(26,108,200,0.07) 2px, transparent 2px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .section-title {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(3.5rem, 8vw, 8rem);
+      line-height: 0.95;
+      color: var(--black);
+      text-shadow: 4px 4px 0 var(--blue);
+      letter-spacing: 0.04em;
+    }
+    .section-title .accent-yellow { color: var(--yellow); text-shadow: 4px 4px 0 var(--black); -webkit-text-stroke: 1px var(--black); }
+    .section-title .accent-red    { color: var(--red);    text-shadow: 4px 4px 0 var(--black); }
+    .section-title .accent-blue   { color: var(--blue);   text-shadow: 4px 4px 0 var(--black); }
+    .section-desc {
+      max-width: 320px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--black);
+      font-weight: 400;
+      background: var(--white);
+      border: var(--outline);
+      padding: 16px 20px;
+      box-shadow: 4px 4px 0 var(--black);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-card {
+      position: relative;
+      border: var(--outline-thick);
+      box-shadow: 6px 6px 0 var(--black);
+      overflow: hidden;
+      cursor: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      background: var(--white);
+    }
+    .product-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0 var(--black);
+    }
+
+    .product-card-img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+    }
+    /* Placeholder when no image is present */
+    .product-card-img-placeholder {
+      width: 100%;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bangers', cursive;
+      font-size: 6rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+    }
+    .bg-hybrid  { background: radial-gradient(ellipse at 40% 30%, #2a80d4, #0D3A6E); }
+    .bg-sativa  { background: radial-gradient(ellipse at 60% 70%, #ffe44d, #E0A800); }
+    .bg-indica  { background: radial-gradient(ellipse at 50% 40%, #e84040, #991818); }
+
+    .product-card-content {
+      padding: 28px 28px 32px;
+      position: relative;
+    }
+
+    /* Colored top bar per strain */
+    .product-card.hybrid .product-card-content { border-top: 6px solid var(--blue); }
+    .product-card.sativa .product-card-content { border-top: 6px solid var(--yellow-dark); }
+    .product-card.indica .product-card-content { border-top: 6px solid var(--red); }
+
+    .product-strain-badge {
+      display: inline-block;
+      font-family: 'Bangers', cursive;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      padding: 3px 14px;
+      border: 2px solid var(--black);
+      border-radius: 100px;
+      margin-bottom: 12px;
+      box-shadow: 2px 2px 0 var(--black);
+    }
+    .hybrid .product-strain-badge { background: var(--blue); color: var(--white); }
+    .sativa .product-strain-badge { background: var(--yellow); color: var(--black); }
+    .indica .product-strain-badge { background: var(--red); color: var(--white); }
+
+    .product-name {
+      font-family: 'Bangers', cursive;
+      font-size: 2.8rem;
+      line-height: 1;
+      color: var(--black);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .product-desc {
+      font-size: 0.85rem;
+      color: #444;
+      font-weight: 400;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .product-potency {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .potency-bar-wrap {
+      flex: 1;
+      height: 8px;
+      background: rgba(0,0,0,0.1);
+      border: 2px solid var(--black);
+      border-radius: 0;
+      overflow: hidden;
+    }
+    .potency-bar {
+      height: 100%;
+      transition: width 1s ease 0.3s;
+    }
+    .hybrid  .potency-bar { background: var(--blue); }
+    .sativa  .potency-bar { background: var(--yellow-dark); }
+    .indica  .potency-bar { background: var(--red); }
+
+    .potency-label {
+      font-family: 'Bangers', cursive;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .hybrid  .potency-label { color: var(--blue); }
+    .sativa  .potency-label { color: var(--yellow-dark); }
+    .indica  .potency-label { color: var(--red); }
+
+    /* Weight tag */
+    .product-weight {
+      position: absolute;
+      top: -16px;
+      right: 24px;
+      font-family: 'Bangers', cursive;
+      font-size: 1.4rem;
+      background: var(--white);
+      border: var(--outline-thick);
+      padding: 2px 14px;
+      box-shadow: 3px 3px 0 var(--black);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── MANIFESTO ─── */
+    .manifesto-section {
+      padding: 160px 80px;
+      background: var(--blue);
+      position: relative;
+      overflow: hidden;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .manifesto-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1.5px, transparent 1.5px);
+      background-size: 20px 20px;
+      pointer-events: none;
+    }
+    /* Big decorative word */
+    .manifesto-section::after {
+      content: 'POW!';
+      font-family: 'Bangers', cursive;
+      font-size: 38vw;
+      color: rgba(255,255,255,0.04);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      -webkit-text-stroke: 2px rgba(255,255,255,0.05);
+    }
+    .manifesto-inner {
+      max-width: 1000px;
+      position: relative;
+      z-index: 1;
+    }
+    .manifesto-quote {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(3.5rem, 8vw, 8rem);
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      text-shadow: 5px 5px 0 var(--blue-dark);
+      position: relative;
+      z-index: 1;
+    }
+    .manifesto-quote .accent-yellow { color: var(--yellow); text-shadow: 5px 5px 0 var(--black); }
+    .manifesto-quote .accent-red    { color: var(--red); text-shadow: 5px 5px 0 var(--black); }
+    .manifesto-byline {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .byline-line { width: 50px; height: 3px; background: var(--yellow); }
+    .byline-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      font-weight: 600;
+    }
+
+    /* ─── PROCESS SECTION ─── */
+    .process-section {
+      background: var(--yellow);
+      padding: 120px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .process-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1.5px, transparent 1.5px);
+      background-size: 20px 20px;
+      pointer-events: none;
+    }
+    .process-section .section-title {
+      text-shadow: 4px 4px 0 var(--red);
+      -webkit-text-stroke: 1px var(--black);
+    }
+    .process-section .section-desc {
+      background: var(--white);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+      margin-top: 80px;
+    }
+    .process-steps { display: flex; flex-direction: column; gap: 0; }
+
+    .step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 20px;
+      padding: 28px 0;
+      border-bottom: 3px solid rgba(0,0,0,0.15);
+      transition: border-color 0.2s ease;
+    }
+    .step:hover { border-color: var(--black); }
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      font-family: 'Bangers', cursive;
+      font-size: 3rem;
+      color: rgba(0,0,0,0.2);
+      line-height: 1;
+      transition: color 0.2s ease;
+      letter-spacing: 0.04em;
+    }
+    .step:hover .step-num { color: var(--black); }
+    .step-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+    .step-desc {
+      font-size: 0.88rem;
+      color: rgba(0,0,0,0.7);
+      line-height: 1.7;
+    }
+
+    /* Comic visual with product image */
+    .process-visual {
+      position: relative;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .process-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid rgba(0,0,0,0.12);
+      animation: ringPulse 4s ease-in-out infinite;
+    }
+    .ring-1 { width: 100%; height: 100%; animation-delay: 0s; border-color: rgba(0,0,0,0.08); }
+    .ring-2 { width: 75%; height: 75%; animation-delay: 0.8s; border-color: rgba(0,0,0,0.12); }
+    .ring-3 { width: 50%; height: 50%; animation-delay: 1.6s; border-color: rgba(0,0,0,0.2); }
+    .ring-4 { width: 28%; height: 28%; animation-delay: 2.4s; border-color: rgba(0,0,0,0.35); background: rgba(0,0,0,0.07); }
+
+    @keyframes ringPulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+    .process-center-text {
+      font-family: 'Bangers', cursive;
+      font-size: 2.5rem;
+      color: var(--black);
+      letter-spacing: 0.06em;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      line-height: 1;
+    }
+    .process-center-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.6);
+      text-align: center;
+      margin-top: 6px;
+      font-weight: 700;
+    }
+
+    /* ─── ACTION WORDS STRIP ─── */
+    .action-strip {
+      background: var(--red);
+      border-top: var(--outline-thick);
+      border-bottom: var(--outline-thick);
+      padding: 24px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .action-track {
+      display: flex;
+      gap: 60px;
+      animation: marquee 12s linear infinite;
+      white-space: nowrap;
+      width: max-content;
+    }
+    .action-word {
+      font-family: 'Bangers', cursive;
+      font-size: 3rem;
+      color: var(--white);
+      letter-spacing: 0.08em;
+      text-shadow: 3px 3px 0 var(--black);
+      -webkit-text-stroke: 1px var(--black);
+      flex-shrink: 0;
+    }
+    .action-word.yellow { color: var(--yellow); }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      padding: 180px 80px;
+      text-align: center;
+      background: var(--off-white);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: 'SLAPPS!';
+      font-family: 'Bangers', cursive;
+      font-size: 38vw;
+      color: rgba(0,0,0,0.035);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      -webkit-text-stroke: 1px rgba(0,0,0,0.04);
+    }
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(26,108,200,0.06) 1.5px, transparent 1.5px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+    .cta-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 20px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-headline {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(4rem, 12vw, 11rem);
+      line-height: 0.95;
+      color: var(--black);
+      margin-bottom: 48px;
+      letter-spacing: 0.04em;
+      text-shadow: 6px 6px 0 var(--blue);
+      position: relative;
+      z-index: 1;
+    }
+    .cta-headline .accent-red    { color: var(--red);    text-shadow: 6px 6px 0 var(--black); -webkit-text-stroke: 1px var(--black); }
+    .cta-headline .accent-yellow { color: var(--yellow-dark); text-shadow: 6px 6px 0 var(--black); }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 44px;
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Bangers', cursive;
+      font-size: 1.4rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: var(--outline-thick);
+      box-shadow: 5px 5px 0 var(--black);
+      cursor: none;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn-primary:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0 var(--black);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 44px;
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Bangers', cursive;
+      font-size: 1.4rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: var(--outline-thick);
+      box-shadow: 5px 5px 0 var(--black);
+      cursor: none;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn-ghost:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0 var(--black);
+      background: var(--yellow);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 50px 80px;
+      background: var(--black);
+      border-top: var(--outline-thick);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Bangers', cursive;
+      font-size: 2rem;
+      color: var(--yellow);
+      letter-spacing: 0.06em;
+      text-shadow: 3px 3px 0 var(--blue);
+    }
+    .footer-logo span { color: var(--red); }
+    .footer-legal {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+      max-width: 380px;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+    }
+    .footer-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.15s ease;
+    }
+    .footer-links a:hover { color: var(--yellow); }
+
+    /* ─── INTRO SPLASH ─── */
     .intro-overlay {
       position: fixed;
       inset: 0;
-      background: var(--off-black);
+      background: var(--blue);
       z-index: 9995;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
+      gap: 12px;
       transition: opacity 0.8s ease 0.2s, visibility 0.8s ease 0.2s;
+    }
+    .intro-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1.5px, transparent 1.5px);
+      background-size: 20px 20px;
     }
     .intro-overlay.gone { opacity: 0; visibility: hidden; }
     .intro-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4rem, 15vw, 14rem);
-      color: var(--gold);
-      letter-spacing: 0.05em;
+      font-family: 'Bangers', cursive;
+      font-size: clamp(5rem, 18vw, 16rem);
+      color: var(--yellow);
+      letter-spacing: 0.06em;
+      -webkit-text-stroke: 3px var(--black);
+      text-shadow: 8px 8px 0 var(--black);
       animation: introScale 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      position: relative;
+      z-index: 1;
+    }
+    .intro-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--white);
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      animation: introScale 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
     }
     @keyframes introScale {
-      0% { opacity: 0; transform: scale(0.8); }
-      60% { opacity: 1; transform: scale(1.02); }
-      100% { opacity: 1; transform: scale(1); }
+      0% { opacity: 0; transform: scale(0.7) rotate(-3deg); }
+      60% { opacity: 1; transform: scale(1.05) rotate(1deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
     }
 
-    /* RESPONSIVE */
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
-      nav { padding: 24px 24px; }
+      nav { padding: 16px 24px; }
       .nav-links { display: none; }
-      .products-section, .manifesto-section, .process-section, .cta-section { padding: 80px 24px; }
-      .products-grid { grid-template-columns: 1fr; gap: 2px; }
+      .products-section,
+      .manifesto-section,
+      .process-section,
+      .cta-section { padding: 80px 24px; }
+      .products-grid { grid-template-columns: 1fr; gap: 20px; }
       .section-header { flex-direction: column; gap: 24px; align-items: flex-start; }
       .process-grid { grid-template-columns: 1fr; gap: 60px; }
-      .process-visual { max-width: 280px; margin: 0 auto; }
-      footer { flex-direction: column; gap: 32px; text-align: center; }
+      .process-visual { max-width: 260px; margin: 0 auto; }
+      footer { flex-direction: column; gap: 28px; text-align: center; }
+      .footer-links { justify-content: center; }
       .scroll-progress { display: none; }
+      .cta-buttons { flex-direction: column; align-items: center; }
     }
   </style>
 
@@ -760,6 +969,7 @@
   <!-- INTRO SPLASH -->
   <div class="intro-overlay" id="introOverlay">
     <div class="intro-text">SLAPPS!</div>
+    <div class="intro-sub">Cannabis Concentrates — Flavor That Slapps!</div>
   </div>
 
   <!-- CURSOR -->
@@ -785,42 +995,43 @@
     </div>
   </div>
 
-  <!-- ─── VIDEO SCRUB SECTION ─── -->
+  <!-- ─── VIDEO SCRUB HERO ─── -->
   <section class="scrub-section" id="scrubSection">
     <div class="video-sticky" id="videoSticky">
 
-      <!-- ★ SWAP THIS VIDEO SRC WITH YOUR OWN ★ -->
+      <!-- ★ SWAP WITH YOUR OWN VIDEO ★ -->
       <!-- <video id="scrubVideo" muted playsinline preload="auto" src="your-video.mp4"></video> -->
 
-      <!-- Demo background (remove when adding real video) -->
+      <!-- Comic background (remove when real video is added) -->
       <div class="video-demo-bg" id="demoBg"></div>
-      <div class="particles" id="particles"></div>
+      <div class="hero-halftone"></div>
+      <div class="hero-burst burst-1">POW!</div>
+      <div class="hero-burst burst-2">BOOM!</div>
 
       <!-- SCROLL OVERLAY TEXT CHAPTERS -->
       <div class="scroll-overlay">
 
         <div class="scroll-chapter" id="ch1">
-          <div class="chapter-eyebrow">Premium Cannabis Extracts</div>
-          <div class="chapter-headline">HITS<br>DIFFERENT<span class="accent">.</span></div>
-          <div class="chapter-sub">Crafted for the culture. Extracted with precision. Built for the ones who know the difference.</div>
+          <div class="chapter-eyebrow">Premium Cannabis Concentrates — 1G</div>
+          <div class="chapter-headline">FLAVOR<br>THAT<br><span class="accent">SLAPPS!</span></div>
+          <div class="chapter-sub">The highest-grade extracts, compressed into every single gram. Not for the faint of heart.</div>
         </div>
 
         <div class="scroll-chapter" id="ch2">
           <div class="chapter-eyebrow">Potency</div>
-          <div class="chapter-headline">90<span style="font-size:0.4em;color:var(--text)">%+</span></div>
-          <div class="chapter-sub" style="text-align:left;max-width:280px">THCa purity that sets the bar. No fillers. No compromises.</div>
+          <div class="chapter-headline">90<span style="font-size:0.35em;color:var(--white)">%+</span></div>
+          <div class="chapter-sub" style="text-align:left;max-width:300px">Premium-grade THC that hits like it's supposed to. Pure. Potent. No filler, no fluff.</div>
         </div>
 
         <div class="scroll-chapter" id="ch3">
-          <div class="chapter-eyebrow">The Effect</div>
-          <div class="chapter-headline">FULL<br>SEND<span class="accent">.</span></div>
-          <div class="chapter-sub" style="text-align:right">Live resin. Sauce. Diamonds. Every form, engineered to slap.</div>
+          <div class="chapter-eyebrow">Indica · Sativa · Hybrid</div>
+          <div class="chapter-headline">THREE<br>STRAINS<span class="accent-red">.</span></div>
+          <div class="chapter-sub" style="text-align:right">One standard: the best. Indica for the night. Sativa for the go. Hybrid for everything in between.</div>
         </div>
 
         <div class="scroll-chapter" id="ch4">
           <div class="chapter-eyebrow">Ready?</div>
-          <div class="chapter-headline">FIND<br>YOUR<br>SLAPP<span class="accent">.</span></div>
-          <div class="hr-accent"></div>
+          <div class="chapter-headline">FIND<br>YOUR<br><span class="accent">SLAPP!</span></div>
         </div>
 
       </div>
@@ -834,81 +1045,140 @@
     </div>
   </section>
 
+  <!-- ─── SECTION DIVIDER ─── -->
+  <div class="section-divider"></div>
+
   <!-- ─── PRODUCTS ─── -->
   <section class="products-section" id="products">
     <div class="section-header">
-      <div class="section-title">The<br><span>Line</span><span style="color:var(--text)">up.</span></div>
-      <div class="section-desc">Three formats. One standard. Extracted from single-source flower, never blended, never compromised.</div>
+      <div class="section-title">
+        The<br>
+        <span class="accent-blue">Line</span><span class="accent-red">up.</span>
+      </div>
+      <div class="section-desc">
+        Three formats. Three strains. One standard of excellence. Each gram extracted from premium single-source flower — crafted to absolutely <strong>slapp</strong>.
+      </div>
     </div>
 
     <div class="products-grid">
-      <div class="product-card">
-        <div class="product-card-bg card-gradient-1"></div>
+
+      <!-- HYBRID -->
+      <div class="product-card hybrid">
+        <!--
+          ★ Product image: place your file at assets/images/hybrid-box.jpg
+          then uncomment the img tag below and remove the placeholder div
+        -->
+        <!-- <img class="product-card-img" src="assets/images/hybrid-box.jpg" alt="SLAPPS! Hybrid 1G Cannabis Concentrate" /> -->
+        <div class="product-card-img-placeholder bg-hybrid">HYBRID</div>
         <div class="product-card-content">
-          <div class="product-tag">Live Resin</div>
-          <div class="product-name">Night<br>Slapp</div>
-          <div class="product-desc">Indica-forward live resin with deep terpene preservation. Body-heavy, mind-clearing.</div>
+          <div class="product-weight">1G</div>
+          <div class="product-strain-badge">Hybrid</div>
+          <div class="product-name">The<br>Balance<br>Slapp</div>
+          <div class="product-desc">Best of both worlds. Our hybrid live resin brings euphoric energy with a smooth, body-relaxing finish. This one keeps you locked in and feeling good.</div>
           <div class="product-potency">
             <div class="potency-bar-wrap">
-              <div class="potency-bar" style="width: 82%"></div>
+              <div class="potency-bar" style="width: 88%"></div>
             </div>
-            <div class="potency-label">82% THC</div>
+            <div class="potency-label">88% THC</div>
           </div>
         </div>
       </div>
 
-      <div class="product-card featured">
-        <div class="product-card-bg card-gradient-2"></div>
+      <!-- SATIVA -->
+      <div class="product-card sativa">
+        <!--
+          ★ Product image: place your file at assets/images/sativa-box.jpg
+        -->
+        <!-- <img class="product-card-img" src="assets/images/sativa-box.jpg" alt="SLAPPS! Sativa 1G Cannabis Concentrate" /> -->
+        <div class="product-card-img-placeholder bg-sativa">SATIVA</div>
         <div class="product-card-content">
-          <div class="product-tag">★ Signature</div>
-          <div class="product-name">The<br>OG<br>Slapp</div>
-          <div class="product-desc">Our flagship. Live sauce with diamond inclusions. The one that started it all.</div>
-          <div class="product-potency">
-            <div class="potency-bar-wrap">
-              <div class="potency-bar" style="width: 91%"></div>
-            </div>
-            <div class="potency-label">91% THC</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-card-bg card-gradient-3"></div>
-        <div class="product-card-content">
-          <div class="product-tag">Diamonds</div>
+          <div class="product-weight">1G</div>
+          <div class="product-strain-badge">Sativa</div>
           <div class="product-name">Day<br>Slapp</div>
-          <div class="product-desc">Sativa-leaning THCa diamonds in terpene sauce. Focused, creative, ready.</div>
+          <div class="product-desc">Creative fuel. Our sativa concentrate is bright, terpene-rich, and built for the go-getters. It's the extract that keeps you moving — and it absolutely slapps.</div>
           <div class="product-potency">
             <div class="potency-bar-wrap">
-              <div class="potency-bar" style="width: 95%"></div>
+              <div class="potency-bar" style="width: 92%"></div>
             </div>
-            <div class="potency-label">95% THCa</div>
+            <div class="potency-label">92% THC</div>
           </div>
         </div>
       </div>
+
+      <!-- INDICA -->
+      <div class="product-card indica">
+        <!--
+          ★ Product image: place your file at assets/images/indica-box.jpg
+        -->
+        <!-- <img class="product-card-img" src="assets/images/indica-box.jpg" alt="SLAPPS! Indica 1G Cannabis Concentrate" /> -->
+        <div class="product-card-img-placeholder bg-indica">INDICA</div>
+        <div class="product-card-content">
+          <div class="product-weight">1G</div>
+          <div class="product-strain-badge">Indica</div>
+          <div class="product-name">Night<br>Slapp</div>
+          <div class="product-desc">Deep, heavy, and absolutely devastating. This indica-forward extract was made for those who want to feel every bit of premium-grade quality hit all at once.</div>
+          <div class="product-potency">
+            <div class="potency-bar-wrap">
+              <div class="potency-bar" style="width: 85%"></div>
+            </div>
+            <div class="potency-label">85% THC</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <!-- ─── SECTION DIVIDER ─── -->
+  <div class="section-divider"></div>
+
+  <!-- ─── ACTION WORDS MARQUEE ─── -->
+  <div class="action-strip">
+    <div class="action-track" id="actionTrack">
+      <span class="action-word">SLAPP!</span>
+      <span class="action-word yellow">BOOM!</span>
+      <span class="action-word">POW!</span>
+      <span class="action-word yellow">WHAM!</span>
+      <span class="action-word">SLAPPS!</span>
+      <span class="action-word yellow">BAM!</span>
+      <span class="action-word">HITS!</span>
+      <span class="action-word yellow">SLAPP!</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="action-word">SLAPP!</span>
+      <span class="action-word yellow">BOOM!</span>
+      <span class="action-word">POW!</span>
+      <span class="action-word yellow">WHAM!</span>
+      <span class="action-word">SLAPPS!</span>
+      <span class="action-word yellow">BAM!</span>
+      <span class="action-word">HITS!</span>
+      <span class="action-word yellow">SLAPP!</span>
+    </div>
+  </div>
 
   <!-- ─── MANIFESTO ─── -->
   <section class="manifesto-section" id="about">
-    <div class="manifesto-bg"></div>
     <div class="manifesto-inner">
-      <div class="manifesto-number">01</div>
       <div class="manifesto-quote">
-        We don't cut<br>corners.<br>We <span class="gold">cut through</span><br>the noise.
+        We don't make<br>
+        good concentrates.<br>
+        We make the ones<br>
+        that <span class="accent-yellow">SLAPP</span><span class="accent-red">.</span>
       </div>
       <div class="manifesto-byline">
         <div class="byline-line"></div>
-        <div class="byline-text">The Slapps! Standard — Est. Every Single Batch</div>
+        <div class="byline-text">The SLAPPS! Standard — Set Every Single Batch</div>
       </div>
     </div>
   </section>
 
+  <!-- ─── SECTION DIVIDER ─── -->
+  <div class="section-divider"></div>
+
   <!-- ─── PROCESS ─── -->
   <section class="process-section" id="process">
-    <div class="section-header" style="margin-bottom:80px">
-      <div class="section-title">How We<br><span>Extract.</span></div>
-      <div class="section-desc">No shortcuts. No compromise. Every batch follows the same obsessive process — because the product demands it.</div>
+    <div class="section-header">
+      <div class="section-title">How We<br><span class="accent-red">Extract.</span></div>
+      <div class="section-desc">No shortcuts. No compromise. Every batch earns the SLAPPS! name the hard way — because that's the only way it slapps like it should.</div>
     </div>
 
     <div class="process-grid">
@@ -917,28 +1187,28 @@
           <div class="step-num">01</div>
           <div class="step-content">
             <div class="step-title">Single-Source Selection</div>
-            <div class="step-desc">We start with hand-selected, single-origin flower. No blends, no mystery biomass — just elite genetics from trusted cultivators.</div>
+            <div class="step-desc">We start with hand-selected, single-origin premium flower. No blends, no mystery biomass — just elite genetics from trusted cultivators that are built to slapp.</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">02</div>
           <div class="step-content">
             <div class="step-title">Flash Freeze at Harvest</div>
-            <div class="step-desc">Flower is frozen immediately at harvest to lock in the full terpene and cannabinoid profile before any degradation can occur.</div>
+            <div class="step-desc">Flower is frozen immediately at harvest to lock in the full terpene and cannabinoid profile. The flavor that slapps starts here.</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">03</div>
           <div class="step-content">
-            <div class="step-title">Hydrocarbon Extraction</div>
-            <div class="step-desc">Precision hydrocarbon extraction preserves the plant's living chemistry. Cold temps, clean solvents, zero shortcuts.</div>
+            <div class="step-title">Precision Extraction</div>
+            <div class="step-desc">Cold temps, clean solvents, zero shortcuts. We preserve the living chemistry of the plant so every dab hits exactly as hard as it should.</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">04</div>
           <div class="step-content">
-            <div class="step-title">Purge &amp; Finish</div>
-            <div class="step-desc">Extended low-temp purging. No residual solvent. Every batch third-party tested before it earns the Slapps! name.</div>
+            <div class="step-title">Purge, Test &amp; Certify</div>
+            <div class="step-desc">Extended low-temp purging. No residual solvent. Every single batch is third-party lab tested before it earns the SLAPPS! name on the lid.</div>
           </div>
         </div>
       </div>
@@ -949,17 +1219,22 @@
         <div class="process-ring ring-3"></div>
         <div class="process-ring ring-4"></div>
         <div style="text-align:center;position:relative;z-index:1">
-          <div class="process-center-text">100%</div>
-          <div class="process-center-sub">Third-Party Tested</div>
+          <div class="process-center-text">100%<br>LAB<br>TESTED</div>
+          <div class="process-center-sub">Every Batch. No Exceptions.</div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ─── SECTION DIVIDER ─── -->
+  <div class="section-divider"></div>
+
   <!-- ─── FIND US CTA ─── -->
   <section class="cta-section" id="find">
-    <div class="cta-eyebrow">Available Now</div>
-    <div class="cta-headline">Ready<br>to <span>Slapp</span>?</div>
+    <div class="cta-eyebrow">Available Now — At Dispensaries Near You</div>
+    <div class="cta-headline">
+      Ready<br>to <span class="accent-red">Get</span><br><span class="accent-yellow">Slapp'd?</span>
+    </div>
     <div class="cta-buttons">
       <a href="#" class="btn-primary">Find a Dispensary</a>
       <a href="#" class="btn-ghost">View Lab Results</a>
@@ -969,7 +1244,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">SLAPPS<span>!</span></div>
-    <div class="footer-legal">For adults 21+ only. Keep out of reach of children. Use responsibly. Not for sale to minors. Check your local laws.</div>
+    <div class="footer-legal">For adults 21+ only. Keep out of reach of children. Cannabis concentrate — use responsibly. Not for sale to minors. Check your local and state laws before purchasing.</div>
     <div class="footer-links">
       <a href="#">Instagram</a>
       <a href="#">Privacy</a>
@@ -982,7 +1257,7 @@
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('introOverlay').classList.add('gone');
-      }, 1600);
+      }, 1800);
     });
 
     // ─── CURSOR ───
@@ -1007,32 +1282,20 @@
 
     document.querySelectorAll('a, button').forEach(el => {
       el.addEventListener('mouseenter', () => {
-        cursor.style.width = '20px';
-        cursor.style.height = '20px';
-        cursorRing.style.width = '52px';
-        cursorRing.style.height = '52px';
+        cursor.style.width = '22px';
+        cursor.style.height = '22px';
+        cursorRing.style.width = '56px';
+        cursorRing.style.height = '56px';
       });
       el.addEventListener('mouseleave', () => {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        cursorRing.style.width = '36px';
-        cursorRing.style.height = '36px';
+        cursor.style.width = '14px';
+        cursor.style.height = '14px';
+        cursorRing.style.width = '40px';
+        cursorRing.style.height = '40px';
       });
     });
 
-    // ─── PARTICLES (demo bg) ───
-    const particleContainer = document.getElementById('particles');
-    for (let i = 0; i < 30; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.animationDuration = (6 + Math.random() * 10) + 's';
-      p.style.animationDelay = (Math.random() * 8) + 's';
-      p.style.opacity = 0;
-      particleContainer.appendChild(p);
-    }
-
-    // ─── VIDEO SCRUB ───
+    // ─── VIDEO SCRUB / SCROLL CHAPTERS ───
     const scrubSection = document.getElementById('scrubSection');
     const video = document.getElementById('scrubVideo'); // null if no video yet
     const demoBg = document.getElementById('demoBg');
@@ -1047,11 +1310,12 @@
 
     const chapterThresholds = [0, 0.22, 0.48, 0.72, 0.92];
 
-    const demoColors = [
-      ['#4A2808', '#1E3A1E', '#2A1A00'],
-      ['#6A3A08', '#1A2A1A', '#3A2200'],
-      ['#2A1A0A', '#0E1E0E', '#1A0E00'],
-      ['#3A2808', '#142014', '#201400'],
+    // Comic bg colors per chapter: blue → yellow → red → blue
+    const demoBgColors = [
+      '#1A6CC8',  // Hybrid blue
+      '#E0A800',  // Sativa yellow-dark
+      '#CC2020',  // Indica red
+      '#0D3A6E',  // Deep blue for finale
     ];
 
     let ticking = false;
@@ -1071,55 +1335,42 @@
       const scrolled = window.scrollY - sectionTop;
       const progress = Math.max(0, Math.min(1, scrolled / sectionH));
 
-      // Progress bar (full page)
+      // Overall page progress bar
       const fullProgress = window.scrollY / (document.body.scrollHeight - window.innerHeight);
       progressFill.style.height = (fullProgress * 100) + '%';
 
-      // Hide scroll indicator after first scroll
+      // Hide scroll indicator
       if (window.scrollY > 100) {
         scrollIndicator.classList.add('hidden');
       } else {
         scrollIndicator.classList.remove('hidden');
       }
 
-      // Video scrubbing
+      // Video scrubbing (when real video is attached)
       if (video && video.duration) {
         video.currentTime = progress * video.duration;
       }
 
-      // Demo bg color shift
-      const chapterIdx = Math.min(3, Math.floor(progress / 0.25));
-      const colors = demoColors[chapterIdx];
-      demoBg.style.background = `
-        radial-gradient(ellipse at ${30 + progress * 40}% ${60 - progress * 30}%, ${colors[0]} 0%, transparent 60%),
-        radial-gradient(ellipse at ${80 - progress * 20}% ${20 + progress * 50}%, ${colors[1]} 0%, transparent 55%),
-        radial-gradient(ellipse at ${60 + progress * 10}% ${80 - progress * 40}%, ${colors[2]} 0%, transparent 50%),
-        #0A0A09
-      `;
+      // Background color shift between chapters
+      const chIdx = Math.min(3, Math.floor(progress / 0.25));
+      demoBg.style.background = demoBgColors[chIdx];
 
       // Chapter visibility
       chapters.forEach((ch, i) => {
         const start = chapterThresholds[i];
         const end = chapterThresholds[i + 1] ?? 1.0;
-
         if (i === 0) {
-          const active = progress < end + 0.05;
-          ch.classList.toggle('active', active);
+          ch.classList.toggle('active', progress < end + 0.05);
         } else {
-          const active = progress >= start - 0.03 && progress < end + 0.05;
-          ch.classList.toggle('active', active);
+          ch.classList.toggle('active', progress >= start - 0.03 && progress < end + 0.05);
         }
       });
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
-
-    // Trigger on load
     updateScroll();
-    // Activate first chapter immediately
     chapters[0].classList.add('active');
 
-    // If real video exists, ensure it's seekable
     if (video) {
       video.addEventListener('loadedmetadata', () => {
         video.pause();
