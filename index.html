@@ -476,36 +476,24 @@
       line-height: 1.6;
       margin-bottom: 20px;
     }
-    .product-potency {
+    .product-effects {
       display: flex;
-      align-items: center;
-      gap: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
-    .potency-bar-wrap {
-      flex: 1;
-      height: 8px;
-      background: rgba(0,0,0,0.1);
+    .effect-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
       border: 2px solid var(--black);
-      border-radius: 0;
-      overflow: hidden;
+      box-shadow: 2px 2px 0 var(--black);
     }
-    .potency-bar {
-      height: 100%;
-      transition: width 1s ease 0.3s;
-    }
-    .hybrid  .potency-bar { background: var(--blue); }
-    .sativa  .potency-bar { background: var(--yellow-dark); }
-    .indica  .potency-bar { background: var(--red); }
-
-    .potency-label {
-      font-family: 'Bangers', cursive;
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      white-space: nowrap;
-    }
-    .hybrid  .potency-label { color: var(--blue); }
-    .sativa  .potency-label { color: var(--yellow-dark); }
-    .indica  .potency-label { color: var(--red); }
+    .hybrid .effect-tag  { background: var(--blue);        color: var(--white); }
+    .sativa .effect-tag  { background: var(--yellow);      color: var(--black); }
+    .indica .effect-tag  { background: var(--red);         color: var(--white); }
 
     /* Weight tag */
     .product-weight {
@@ -1048,51 +1036,48 @@
 
       <!-- HYBRID -->
       <div class="product-card hybrid">
-        <img class="product-card-img" src="assets/images/hybrid-box.jpg.jpg" alt="SLAPPS! Hybrid 1G Cannabis Concentrate" />
+        <img class="product-card-img" src="assets/images/hybrid-box.jpg" alt="SLAPPS! Hybrid 1G Cannabis Concentrate" />
         <div class="product-card-content">
           <div class="product-weight">1G</div>
           <div class="product-strain-badge">Hybrid</div>
           <div class="product-name">The<br>Balance<br>Slapp</div>
           <div class="product-desc">Best of both worlds. Our hybrid live resin brings euphoric energy with a smooth, body-relaxing finish. This one keeps you locked in and feeling good.</div>
-          <div class="product-potency">
-            <div class="potency-bar-wrap">
-              <div class="potency-bar" style="width: 88%"></div>
-            </div>
-            <div class="potency-label">88% THC</div>
+          <div class="product-effects">
+            <span class="effect-tag">Euphoric</span>
+            <span class="effect-tag">Balanced</span>
+            <span class="effect-tag">Full-Body</span>
           </div>
         </div>
       </div>
 
       <!-- SATIVA -->
       <div class="product-card sativa">
-        <img class="product-card-img" src="assets/images/sativa-box.jpg.jpg" alt="SLAPPS! Sativa 1G Cannabis Concentrate" />
+        <img class="product-card-img" src="assets/images/sativa-box.jpg" alt="SLAPPS! Sativa 1G Cannabis Concentrate" />
         <div class="product-card-content">
           <div class="product-weight">1G</div>
           <div class="product-strain-badge">Sativa</div>
           <div class="product-name">Day<br>Slapp</div>
           <div class="product-desc">Creative fuel. Our sativa concentrate is bright, terpene-rich, and built for the go-getters. It's the extract that keeps you moving — and it absolutely slapps.</div>
-          <div class="product-potency">
-            <div class="potency-bar-wrap">
-              <div class="potency-bar" style="width: 92%"></div>
-            </div>
-            <div class="potency-label">92% THC</div>
+          <div class="product-effects">
+            <span class="effect-tag">Uplifting</span>
+            <span class="effect-tag">Creative</span>
+            <span class="effect-tag">Energetic</span>
           </div>
         </div>
       </div>
 
       <!-- INDICA -->
       <div class="product-card indica">
-        <img class="product-card-img" src="assets/images/indica-box.jpg.jpg" alt="SLAPPS! Indica 1G Cannabis Concentrate" />
+        <img class="product-card-img" src="assets/images/indica-box.jpg" alt="SLAPPS! Indica 1G Cannabis Concentrate" />
         <div class="product-card-content">
           <div class="product-weight">1G</div>
           <div class="product-strain-badge">Indica</div>
           <div class="product-name">Night<br>Slapp</div>
           <div class="product-desc">Deep, heavy, and absolutely devastating. This indica-forward extract was made for those who want to feel every bit of premium-grade quality hit all at once.</div>
-          <div class="product-potency">
-            <div class="potency-bar-wrap">
-              <div class="potency-bar" style="width: 85%"></div>
-            </div>
-            <div class="potency-label">85% THC</div>
+          <div class="product-effects">
+            <span class="effect-tag">Relaxing</span>
+            <span class="effect-tag">Body-Heavy</span>
+            <span class="effect-tag">Deep</span>
           </div>
         </div>
       </div>
