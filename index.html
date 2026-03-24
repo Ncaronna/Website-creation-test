@@ -240,7 +240,7 @@
       flex-direction: column;
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
     .scroll-chapter.active {
       opacity: 1;
@@ -1315,9 +1315,9 @@
         const start = chapterThresholds[i];
         const end = chapterThresholds[i + 1] ?? 1.0;
         if (i === 0) {
-          ch.classList.toggle('active', progress < end + 0.05);
+          ch.classList.toggle('active', progress < end);
         } else {
-          ch.classList.toggle('active', progress >= start - 0.03 && progress < end + 0.05);
+          ch.classList.toggle('active', progress >= start && progress < end);
         }
       });
     }
