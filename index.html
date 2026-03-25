@@ -1317,11 +1317,19 @@
   </footer>
 
   <script>
-    // ─── INTRO ───
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('introOverlay').classList.add('gone');
-      }, 1800);
+    // ─── ALWAYS START AT TOP ───
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    // ─── SMOOTH SCROLL (no hash in URL so reload always starts at top) ───
+    document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
     });
 
     // ─── CURSOR ───
@@ -1432,8 +1440,7 @@
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    updateScroll();
-    chapters[0].classList.add('active');
+    updateScroll(); // sets the correct chapter based on current scroll position
 
     if (video) {
       video.addEventListener('loadedmetadata', () => {
