@@ -1377,7 +1377,13 @@
     const progressFill = document.getElementById('progressFill');
     const scrollIndicator = document.getElementById('scrollIndicator');
 
-    const chapterThresholds = [0, 0.22, 0.48, 0.72, 0.92];
+    // Each chapter: [start, end] — gaps between ensure no overlap
+    const chapterRanges = [
+      [0,    0.19],   // ch1
+      [0.22, 0.45],   // ch2
+      [0.48, 0.69],   // ch3
+      [0.72, 0.92],   // ch4
+    ];
 
     // Comic bg colors per chapter: blue → yellow → red → blue
     const demoBgColors = [
@@ -1420,17 +1426,26 @@
         video.currentTime = progress * video.duration;
       }
 
-      // Background color shift between chapters
-      const chIdx = Math.min(3, Math.floor(progress / 0.25));
-      demoBg.style.background = demoBgColors[chIdx];
+      // Background color shift — tied to chapter ranges
+      let bgIdx = 0;
+      for (let i = 0; i < chapterRanges.length; i++) {
+        if (progress >= chapterRanges[i][0]) bgIdx = i;
+      }
+      demoBg.style.background = demoBgColors[bgIdx];
 
-      // Chapter visibility — inline style wins over any CSS specificity
-      chapters.forEach((ch, i) => {
-        const start = chapterThresholds[i];
-        const end = chapterThresholds[i + 1] ?? 1.0;
-        const active = (i === 0) ? progress < end : progress >= start && progress < end;
-        ch.style.display = active ? 'flex' : 'none';
-      });
+      // Chapter visibility — hide ALL, then show the ONE whose range we're in.
+      // Gaps between ranges guarantee one disappears before the next appears.
+      let activeIdx = -1;
+      for (let i = 0; i < chapters.length; i++) {
+        const [start, end] = chapterRanges[i];
+        if (progress >= start && progress <= end) {
+          activeIdx = i;
+          break;
+        }
+      }
+      for (let i = 0; i < chapters.length; i++) {
+        chapters[i].style.display = (i === activeIdx) ? 'flex' : 'none';
+      }
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
