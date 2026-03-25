@@ -234,13 +234,10 @@
     .scroll-chapter {
       position: absolute;
       inset: 0;
-      display: none;          /* Completely hidden — no bleed-through possible */
+      display: none;   /* JS sets display:flex/none directly via inline style */
       align-items: center;
       justify-content: center;
       flex-direction: column;
-    }
-    .scroll-chapter.active {
-      display: flex;
     }
 
     .chapter-eyebrow {
@@ -1427,15 +1424,12 @@
       const chIdx = Math.min(3, Math.floor(progress / 0.25));
       demoBg.style.background = demoBgColors[chIdx];
 
-      // Chapter visibility
+      // Chapter visibility — inline style wins over any CSS specificity
       chapters.forEach((ch, i) => {
         const start = chapterThresholds[i];
         const end = chapterThresholds[i + 1] ?? 1.0;
-        if (i === 0) {
-          ch.classList.toggle('active', progress < end);
-        } else {
-          ch.classList.toggle('active', progress >= start && progress < end);
-        }
+        const active = (i === 0) ? progress < end : progress >= start && progress < end;
+        ch.style.display = active ? 'flex' : 'none';
       });
     }
 
