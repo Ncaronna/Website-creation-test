@@ -234,17 +234,13 @@
     .scroll-chapter {
       position: absolute;
       inset: 0;
-      display: flex;
+      display: none;          /* Completely hidden — no bleed-through possible */
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      opacity: 0;
-      visibility: hidden;
-      /* No transition — prevents two chapters showing simultaneously during scroll */
     }
     .scroll-chapter.active {
-      opacity: 1;
-      visibility: visible;
+      display: flex;
     }
 
     .chapter-eyebrow {
