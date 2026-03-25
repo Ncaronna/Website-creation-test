@@ -1320,6 +1320,13 @@
     }
     window.scrollTo(0, 0);
 
+    // ─── INTRO OVERLAY ───
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('introOverlay').classList.add('gone');
+      }, 1800);
+    });
+
     // ─── SMOOTH SCROLL (no hash in URL so reload always starts at top) ───
     document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(link => {
       link.addEventListener('click', e => {
