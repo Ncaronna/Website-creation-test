@@ -234,7 +234,9 @@
     .scroll-chapter {
       position: absolute;
       inset: 0;
-      display: none;   /* JS sets display:flex/none directly via inline style */
+      display: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
       align-items: center;
       justify-content: center;
       flex-direction: column;
@@ -1400,6 +1402,27 @@
       '#0D3A6E',  // Deep blue for finale
     ];
 
+    const FADE = 250; // ms — must match CSS transition duration
+
+    // Fade a chapter out, then hide it so it can never bleed through
+    function fadeOut(ch) {
+      ch.style.opacity = '0';
+      setTimeout(() => {
+        if (ch.style.opacity === '0') ch.style.display = 'none';
+      }, FADE);
+    }
+
+    // Make a chapter visible, then fade it in
+    function fadeIn(ch) {
+      ch.style.display = 'flex';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        ch.style.opacity = '1';
+      }));
+    }
+
+    // Initialise all chapters as fully hidden
+    chapters.forEach(ch => { ch.style.display = 'none'; ch.style.opacity = '0'; });
+
     let ticking = false;
 
     function onScroll() {
@@ -1440,18 +1463,19 @@
       }
       demoBg.style.background = demoBgColors[bgIdx];
 
-      // Chapter visibility — hide ALL, then show the ONE whose range we're in.
-      // Gaps between ranges guarantee one disappears before the next appears.
+      // Chapter visibility — fade out the old, fade in the new.
+      // The gaps between ranges act as breathing room so they never overlap.
       let activeIdx = -1;
       for (let i = 0; i < chapters.length; i++) {
         const [start, end] = chapterRanges[i];
-        if (progress >= start && progress <= end) {
-          activeIdx = i;
-          break;
-        }
+        if (progress >= start && progress <= end) { activeIdx = i; break; }
       }
       for (let i = 0; i < chapters.length; i++) {
-        chapters[i].style.display = (i === activeIdx) ? 'flex' : 'none';
+        const ch = chapters[i];
+        const shouldShow = (i === activeIdx);
+        const isShown = ch.style.display === 'flex';
+        if (shouldShow && !isShown) fadeIn(ch);
+        else if (!shouldShow && isShown) fadeOut(ch);
       }
     }
 
