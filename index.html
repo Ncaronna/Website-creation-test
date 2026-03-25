@@ -239,12 +239,12 @@
       justify-content: center;
       flex-direction: column;
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      visibility: hidden;
+      /* No transition — prevents two chapters showing simultaneously during scroll */
     }
     .scroll-chapter.active {
       opacity: 1;
-      transform: translateY(0);
+      visibility: visible;
     }
 
     .chapter-eyebrow {
@@ -916,10 +916,62 @@
       100% { opacity: 1; transform: scale(1) rotate(0deg); }
     }
 
+    /* ─── HAMBURGER ─── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      z-index: 600;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      background: var(--white);
+      border-radius: 1px;
+      transition: transform 0.22s ease, opacity 0.22s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: var(--blue-dark);
+      border-bottom: var(--outline-thick);
+      z-index: 490;
+      padding: 90px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(-110%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-menu.open { transform: translateY(0); }
+    .mobile-menu a {
+      font-family: 'Bangers', cursive;
+      font-size: 2.8rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      text-decoration: none;
+      padding: 18px 0;
+      border-bottom: 2px solid rgba(255,255,255,0.15);
+      transition: color 0.15s ease;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--yellow); }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
+      .hamburger { display: flex; }
       .products-section,
       .manifesto-section,
       .process-section,
@@ -932,6 +984,56 @@
       .footer-links { justify-content: center; }
       .scroll-progress { display: none; }
       .cta-buttons { flex-direction: column; align-items: center; }
+      /* Chapters: tighter on tablet */
+      .chapter-headline { font-size: clamp(3.5rem, 13vw, 8rem); }
+      #ch2 .chapter-headline { font-size: clamp(5rem, 18vw, 12rem); }
+      #ch2 { padding-left: 5vw; }
+      #ch3 { padding-right: 5vw; }
+    }
+
+    @media (max-width: 600px) {
+      /* Cursor not needed on touch */
+      .cursor, .cursor-ring { display: none; }
+      body { cursor: auto; }
+      a, button { cursor: pointer; }
+
+      /* Nav */
+      nav { padding: 14px 20px; }
+      .nav-logo { font-size: 1.9rem; }
+
+      /* Hero chapters */
+      .chapter-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; }
+      .chapter-headline {
+        font-size: clamp(3rem, 14vw, 4.5rem);
+        text-shadow: 3px 3px 0 var(--black);
+      }
+      #ch2 { padding-left: 5vw; }
+      #ch2 .chapter-headline { font-size: clamp(4rem, 20vw, 6rem); }
+      #ch3 { padding-right: 5vw; }
+      .chapter-sub { font-size: 0.8rem; max-width: 80vw; padding: 8px 14px; }
+
+      /* Hero decorations */
+      .burst-1 { font-size: 32vw; }
+      .burst-2 { font-size: 22vw; }
+
+      /* Sections */
+      .products-section,
+      .manifesto-section,
+      .process-section,
+      .cta-section { padding: 60px 20px; }
+      .section-title { font-size: clamp(2.4rem, 12vw, 4rem); }
+      .product-card-content { padding: 20px 20px 24px; }
+      .product-name { font-size: 2rem; }
+      .manifesto-quote { font-size: clamp(2.5rem, 9vw, 5rem); }
+      .cta-headline { font-size: clamp(3rem, 12vw, 6rem); }
+
+      /* Footer */
+      footer { padding: 40px 20px; gap: 20px; }
+      .footer-legal { font-size: 0.65rem; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+
+      /* Buttons */
+      .btn-primary, .btn-ghost { padding: 16px 28px; font-size: 1.2rem; }
     }
   </style>
 
@@ -957,7 +1059,18 @@
       <li><a href="#about">About</a></li>
       <li><a href="#find">Find Us</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#products" class="mobile-nav-link">Products</a>
+    <a href="#process" class="mobile-nav-link">Process</a>
+    <a href="#about" class="mobile-nav-link">About</a>
+    <a href="#find" class="mobile-nav-link">Find Us</a>
+  </div>
 
   <!-- SCROLL PROGRESS -->
   <div class="scroll-progress">
@@ -1333,6 +1446,24 @@
       });
       video.load();
     }
+
+    // ─── HAMBURGER MENU ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
   </script>
 
 </body>
