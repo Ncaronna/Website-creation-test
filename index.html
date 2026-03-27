@@ -1084,7 +1084,7 @@
       <div class="video-demo-bg" id="demoBg"></div>
 
       <!-- Product video — sits on top of background, blend mode removes white -->
-      <video id="scrubVideo" autoplay muted loop playsinline src="assets/shizzyshiz_A_gold_hand_made_from_the_gold_liquid_rises_up_and_9d848ba2-9156-4681-86ec-0d04f0eb3819_0.mp4"></video>
+      <video id="scrubVideo" muted playsinline preload="auto" src="assets/shizzyshiz_A_gold_hand_made_from_the_gold_liquid_rises_up_and_9d848ba2-9156-4681-86ec-0d04f0eb3819_0.mp4"></video>
 
       <div class="hero-halftone"></div>
       <div class="hero-burst burst-1">POW!</div>
@@ -1486,17 +1486,17 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     updateScroll(); // sets the correct chapter based on current scroll position
 
-    // Video scrub setup — wait until the browser can seek reliably
+    // Video scrub setup — pause always, seek only via scroll
     if (video) {
       const onVideoReady = () => {
         videoReady = true;
         video.pause();
         updateScroll();
       };
-      // canplaythrough = browser has buffered enough to seek without stalling
       video.addEventListener('canplaythrough', onVideoReady, { once: true });
-      // Fallback: loadeddata fires earlier, also try there
       video.addEventListener('loadeddata', onVideoReady, { once: true });
+      // Re-pause immediately if browser tries to play on its own
+      video.addEventListener('play', () => video.pause());
       video.load();
     }
 
