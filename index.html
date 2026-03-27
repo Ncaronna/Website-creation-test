@@ -168,7 +168,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      mix-blend-mode: multiply; /* removes white background */
+      /* mix-blend-mode: multiply; — re-enable once video confirmed loading */
     }
 
     /* Animated comic background */
@@ -1080,7 +1080,7 @@
   <section class="scrub-section" id="scrubSection">
     <div class="video-sticky" id="videoSticky">
 
-      <video id="scrubVideo" muted playsinline preload="auto" src="assets/shizzyshiz_A_gold_hand_made_from_the_gold_liquid_rises_up_and_9d848ba2-9156-4681-86ec-0d04f0eb3819_0.mp4"></video>
+      <video id="scrubVideo" autoplay muted loop playsinline src="assets/shizzyshiz_A_gold_hand_made_from_the_gold_liquid_rises_up_and_9d848ba2-9156-4681-86ec-0d04f0eb3819_0.mp4"></video>
 
       <!-- Comic background (remove when real video is added) -->
       <div class="video-demo-bg" id="demoBg"></div>
